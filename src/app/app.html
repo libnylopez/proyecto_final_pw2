@@ -1,0 +1,22 @@
+<div class="app-container">
+  <header>
+  <div class="title-wrapper">
+    <h1>API Testing Tool</h1>
+    <p>Mini Postman en Angular</p>
+  </div>
+</header>
+
+  <main class="layout">
+    <section class="left">
+      <app-request-form (send)="onSendRequest($event)"></app-request-form>
+
+      <div *ngIf="loading" class="loading">
+        Ejecutando petición...
+      </div>
+    </section>
+
+    <section class="right">
+      <app-response-viewer [response]="response"></app-response-viewer>
+    </section>
+  </main>
+</div>

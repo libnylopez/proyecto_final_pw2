@@ -1,0 +1,74 @@
+<div class="card">
+  <h2>API Request</h2>
+
+  <form (ngSubmit)="onSubmit()">
+    <!-- URL y Método -->
+    <div class="row">
+      <div class="flex-1">
+        <label>URL</label>
+        <input
+          type="text"
+          [(ngModel)]="url"
+          name="url"
+          placeholder="https://jsonplaceholder.typicode.com/posts"
+          required
+        />
+      </div>
+
+      <div>
+        <label>Método</label>
+        <select [(ngModel)]="method" name="method">
+          <option *ngFor="let m of methods" [value]="m">{{ m }}</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Headers -->
+    <div class="section">
+      <div class="section-header">
+        <h3>Headers</h3>
+        <button type="button" (click)="onAddHeader()">+ Añadir header</button>
+      </div>
+
+      <div class="headers-list">
+        <div class="header-row" *ngFor="let h of headers; let i = index">
+          <input
+            type="text"
+            [(ngModel)]="h.key"
+            name="headerKey{{ i }}"
+            placeholder="Key"
+          />
+          <input
+            type="text"
+            [(ngModel)]="h.value"
+            name="headerValue{{ i }}"
+            placeholder="Value"
+          />
+          <button type="button" (click)="onRemoveHeader(i)" *ngIf="headers.length > 1">
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body (solo para métodos con body) -->
+    <div class="section" *ngIf="['POST','PUT','PATCH'].includes(method)">
+      <div class="section-header">
+        <h3>Body (JSON)</h3>
+      </div>
+
+      <textarea
+        [(ngModel)]="rawBody"
+        name="body"
+        rows="8"
+        placeholder='{"title": "Hola", "body": "mundo"}'
+      ></textarea>
+
+      <div class="error" *ngIf="bodyError">{{ bodyError }}</div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Enviar petición</button>
+    </div>
+  </form>
+</div>

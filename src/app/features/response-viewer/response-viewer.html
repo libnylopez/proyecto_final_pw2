@@ -1,0 +1,38 @@
+<div class="card" *ngIf="response as res; else noResponse">
+  <h2>Respuesta</h2>
+
+  <div class="meta">
+    <div>
+      <span class="label">Status:</span>
+
+      <span
+        class="status-code"
+        [class.status-ok]="res.status >= 200 && res.status < 300"
+        [class.status-error]="res.status >= 400"
+      >
+        {{ res.status }} - {{ res.statusText }}
+      </span>
+    </div>
+
+    <div>
+      <span class="label">Tiempo:</span>
+      <span>{{ res.timeMs | number : '1.0-0' }} ms</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h3>Headers</h3>
+    <pre><code>{{ res.headers | json }}</code></pre>
+  </div>
+
+  <div class="section">
+    <h3>Body</h3>
+    <pre><code>{{ res.body | json }}</code></pre>
+  </div>
+</div>
+
+<ng-template #noResponse>
+  <div class="card empty">
+    <p>Ejecuta una petición para ver la respuesta aquí.</p>
+  </div>
+</ng-template>
